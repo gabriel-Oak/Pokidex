@@ -40,10 +40,10 @@ class Pokemon {
   int heigth;
   int weight;
   String img;
-  List<PokemonType> types;
-  List<String> abilities;
+  List types;
+  List abilities;
 
-  Pokemon.fromMap(Map map) {
+  Pokemon.fromStorage(Map map) {
     idApp = map[idAppColumn];
     apiId = map[apiIdColumn];
     name = map[idAppColumn];
@@ -55,5 +55,23 @@ class Pokemon {
         .map((type) => PokemonType.fromMap(type))
         .toList();
     abilities = json.decode(map[abilitiesColumn]);
+  }
+
+  Pokemon.fromMap(Map map) {
+    apiId = map['id'];
+    name = map['name'][0];
+    heigth = map['heigth'];
+    weight = map['weight'];
+    img = map['sprites']['front_default'];
+    types = map['types']
+        .map(
+          (type) => PokemonType.fromApi(type),
+        )
+        .toList();
+    abilities = map['abilities']
+        .map(
+          (ability) => ability['ability']['name'],
+        )
+        .toList();
   }
 }

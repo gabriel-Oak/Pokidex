@@ -16,6 +16,11 @@ class PokemonType {
 
   PokemonType.fromMap(Map map) {
     slot = map['slot'];
+    name = map['name'];
+  }
+
+  PokemonType.fromApi(Map map) {
+    slot = map['slot'];
     name = map['type']['name'];
     _color = typeColor[name];
   }
