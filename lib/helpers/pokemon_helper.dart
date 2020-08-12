@@ -1,11 +1,12 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:pokidex/helpers/init_database.dart';
+import 'package:pokidex/helpers/poke_colors.dart';
 import 'package:pokidex/helpers/pokemon_type.dart';
 import 'package:sqflite/sqflite.dart';
 
 final pokemonsTable = 'pokemons';
-final idAppColumn = 'idApp';
 final apiIdColumn = 'apiId';
 final nameColumn = 'name';
 final heigthColumn = 'heigth';
@@ -22,19 +23,78 @@ class PokemonHelper {
 
   Database _db;
 
-  get db async {
+  Future<Database> get db async {
     if (_db == null) _db = await initDb();
     return _db;
   }
 
   Future close() async {
-    final Database database = await db;
+    final database = await db;
     await database.close();
+  }
+
+  Future<int> saveUpdate(Pokemon pokemon) async {
+    final database = await db;
+    final hasPokemon = await getByApiId(apiId: pokemon.apiId) != null;
+
+    return hasPokemon
+        ? await database.update(
+            pokemonsTable,
+            pokemon.toMap(),
+            where: '$apiIdColumn = ?',
+            whereArgs: [pokemon.apiId],
+          )
+        : await database.insert(pokemonsTable, pokemon.toMap());
+  }
+
+  Future<Map<String, dynamic>> getPaginated({@required int offSet}) async {
+    try {
+      final database = await db;
+
+      final Map count = (await database.rawQuery(
+        'SELECT COUNT(*) as count FROM $pokemonsTable;',
+      ))
+          .first;
+
+      List pokemons = await database.rawQuery(
+        'SELECT * FROM $pokemonsTable LIMIT 20 OFFSET $offSet;',
+      );
+
+      pokemons = pokemons.map((e) => Pokemon.fromStorage(e)).toList();
+      return {
+        ...count,
+        'pokemons': pokemons,
+        'hasPrev': offSet - 20 > 0,
+        'hasNext': pokemons.length == 20 && offSet + 20 <= count['count'],
+      };
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<Pokemon> getByApiId({@required apiId}) async {
+    final database = await db;
+    final List<Map> pokemons = await database.query(
+      pokemonsTable,
+      columns: [
+        apiIdColumn,
+        nameColumn,
+        heigthColumn,
+        weightColumn,
+        imgColumn,
+        typesColumn,
+        abilitiesColumn,
+      ],
+      where: '$apiIdColumn = ?',
+      whereArgs: [apiId],
+    );
+
+    return pokemons.length > 0 ? Pokemon.fromStorage(pokemons.first) : null;
   }
 }
 
 class Pokemon {
-  int idApp;
   int apiId;
   String name;
   int heigth;
@@ -42,36 +102,57 @@ class Pokemon {
   String img;
   List types;
   List abilities;
+  String cardColor;
 
   Pokemon.fromStorage(Map map) {
-    idApp = map[idAppColumn];
-    apiId = map[apiIdColumn];
-    name = map[idAppColumn];
-    heigth = map[heigthColumn];
-    weight = map[weightColumn];
-    img = map[imgColumn];
-    types = json
+    final List t = json
         .decode(map[typesColumn])
         .map((type) => PokemonType.fromMap(type))
         .toList();
+
+    apiId = map[apiIdColumn];
+    name = map[nameColumn];
+    heigth = map[heigthColumn];
+    weight = map[weightColumn];
+    img = map[imgColumn];
+    types = t;
     abilities = json.decode(map[abilitiesColumn]);
+    cardColor = pokeColor[t.where((e) => e.slot == 1).first.name];
   }
 
-  Pokemon.fromMap(Map map) {
-    apiId = map['id'];
-    name = map['name'][0];
-    heigth = map['heigth'];
-    weight = map['weight'];
-    img = map['sprites']['front_default'];
-    types = map['types']
+  Pokemon.fromApi(Map map) {
+    final List<String> splitedName = map['name'].split(' ');
+    final t = map['types']
         .map(
           (type) => PokemonType.fromApi(type),
         )
         .toList();
+
+    apiId = map['id'];
+    heigth = map['heigth'];
+    weight = map['weight'];
+    img = map['sprites']['front_default'];
+    name = splitedName
+        .map((segment) => '${segment[0].toUpperCase()}${segment.substring(1)}')
+        .join(' ');
+    types = t;
     abilities = map['abilities']
         .map(
           (ability) => ability['ability']['name'],
         )
         .toList();
+    cardColor = pokeColor[t.where((e) => e.slot == 1).first.name];
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      apiIdColumn: apiId,
+      nameColumn: name,
+      heigthColumn: heigth,
+      weightColumn: weight,
+      imgColumn: img,
+      typesColumn: json.encode(types.map((type) => type.toMap()).toList()),
+      abilitiesColumn: json.encode(abilities),
+    };
   }
 }

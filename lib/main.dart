@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokidex/helpers/pokemon_helper.dart';
 import 'package:pokidex/helpers/pokemon_service.dart';
 import 'package:pokidex/views/pokemons/pokemons_page.dart';
 
@@ -7,7 +8,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final PokemonService pokeService = PokemonService();
+  static PokemonHelper pokemonHelper = PokemonHelper();
+  final PokemonService pokeService = PokemonService(
+    pokemonHelper: pokemonHelper,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +22,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: PokemonsPage(service: pokeService),
+      debugShowCheckedModeBanner: false,
     );
   }
 }

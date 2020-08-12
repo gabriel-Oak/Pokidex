@@ -3,19 +3,19 @@ import 'package:sqflite/sqflite.dart';
 
 Future<Database> initDb() async {
   final String databasePath = await getDatabasesPath();
-  final String path = join(databasePath, 'pokidex.v0.db');
+  final String path = join(databasePath, 'pokidex.v012.db');
 
   return await openDatabase(path, version: 1, onCreate: (db, version) async {
     await db.execute(
       'CREATE TABLE pokemons' +
           '(' +
           'idApp INTEGER PRIMARY KEY,' +
-          'apiId INTEGER,' +
+          'apiId INTEGER UNIQUE,' +
           'name TEXT,' +
           'heigth INTEGER,' +
           'weight INTEGER,' +
-          'img TEXT' +
-          'types TEXT' +
+          'img TEXT,' +
+          'types TEXT,' +
           'abilities TEXT' +
           ');',
     );

@@ -17,12 +17,21 @@ class PokemonType {
   PokemonType.fromMap(Map map) {
     slot = map['slot'];
     name = map['name'];
+    _color = map['color'];
   }
 
   PokemonType.fromApi(Map map) {
     slot = map['slot'];
     name = map['type']['name'];
     _color = typeColor[name];
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'slot': slot,
+      'name': name,
+      'color': color,
+    };
   }
 
   static Map<String, dynamic> mapTransform(Map map) {
