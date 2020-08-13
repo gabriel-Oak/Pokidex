@@ -4,12 +4,12 @@ import 'package:pokidex/helpers/poke_colors.dart';
 class PokemonType {
   int slot;
   String name;
-  String _color;
+  int _color;
 
   PokemonType({
     @required this.slot,
     @required this.name,
-    @required String color,
+    @required int color,
   }) {
     _color = color;
   }
@@ -23,7 +23,7 @@ class PokemonType {
   PokemonType.fromApi(Map map) {
     slot = map['slot'];
     name = map['type']['name'];
-    _color = typeColor[name];
+    _color = int.parse(typeColor[name].replaceAll(RegExp(r'#'), '0xFF'));
   }
 
   Map<String, dynamic> toMap() {
@@ -41,5 +41,5 @@ class PokemonType {
     };
   }
 
-  get color => _color;
+  int get color => _color;
 }

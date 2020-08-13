@@ -4,40 +4,50 @@ import 'package:pokidex/helpers/pokemon_helper.dart';
 
 class PokemonService {
   final PokemonHelper pokemonHelper;
-  final Dio dio = Dio(BaseOptions(
-    baseUrl: 'https://pokeapi.co/api/v2/pokemon',
-    responseType: ResponseType.json,
-  ));
+  final Dio dio = Dio(
+    BaseOptions(
+      baseUrl: 'https://pokeapi.co/api/v2/pokemon',
+      responseType: ResponseType.json,
+      connectTimeout: 10000,
+      receiveTimeout: 10000,
+      sendTimeout: 10000,
+    ),
+  );
 
   PokemonService({@required this.pokemonHelper});
 
   Future<Map> getPokemons({offSet = 0}) async {
     try {
-      final response = await dio.get('/', queryParameters: {
-        'offset': offSet,
-        'limit': 20,
-      });
+      Map pagination = await pokemonHelper.getPaginated(offSet: offSet);
 
-      final List results = response.data['results'];
+      if (pagination == null || pagination['pokemons'].length == 0) {
+        final response = await dio.get('', queryParameters: {
+          'offset': offSet,
+          'limit': 20,
+        });
 
-      final detailedList = (await Future.wait(
-        results.map((p) async {
-          final id = int.parse(p['url'].substring(34, p['url'].length - 1));
-          return getDetails(id: id);
-        }),
-      ))
-          .where((pokemon) => pokemon != null)
-          .toList();
+        final List results = response.data['results'];
 
-      return {
-        'count': response.data['count'],
-        'hasNext': response.data['next'] != null,
-        'hasPrev': response.data['previous'] != null,
-        'pokemons': detailedList,
-      };
+        final detailedList = (await Future.wait(
+          results.map((p) async {
+            final id = int.parse(p['url'].substring(34, p['url'].length - 1));
+            return getDetails(id: id);
+          }),
+        ))
+            .where((pokemon) => pokemon != null)
+            .toList();
+        pagination = {
+          'count': response.data['count'],
+          'hasNext': response.data['next'] != null,
+          'hasPrev': response.data['previous'] != null,
+          'pokemons': detailedList,
+        };
+      }
+
+      return pagination;
     } catch (e) {
       print(e);
-      return await pokemonHelper.getPaginated(offSet: offSet);
+      return null;
     }
   }
 

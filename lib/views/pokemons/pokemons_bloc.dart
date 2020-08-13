@@ -15,13 +15,15 @@ class PokemonsBloc extends Bloc<PokemonsEvent, PokemonState> {
     if (event is GetPokemons) {
       yield state.evolute(loading: true, offSet: event.offSet);
       final Map pagination = await service.getPokemons(offSet: event.offSet);
-      yield state.evolute(
-        loading: false,
-        count: pagination['count'],
-        hasNext: pagination['hasNext'],
-        hasPrev: pagination['hasPrev'],
-        pokemons: pagination['pokemons'],
-      );
+      if (pagination != null) {
+        yield state.evolute(
+          count: pagination['count'],
+          hasNext: pagination['hasNext'],
+          hasPrev: pagination['hasPrev'],
+          pokemons: pagination['pokemons'],
+        );
+      }
+      yield state.evolute(loading: false);
     }
   }
 }

@@ -57,14 +57,14 @@ class PokemonHelper {
           .first;
 
       List pokemons = await database.rawQuery(
-        'SELECT * FROM $pokemonsTable LIMIT 20 OFFSET $offSet;',
+        'SELECT * FROM $pokemonsTable ORDER BY $apiIdColumn ASC LIMIT 20 OFFSET $offSet;',
       );
 
       pokemons = pokemons.map((e) => Pokemon.fromStorage(e)).toList();
       return {
         ...count,
         'pokemons': pokemons,
-        'hasPrev': offSet - 20 > 0,
+        'hasPrev': offSet - 20 >= 0,
         'hasNext': pokemons.length == 20 && offSet + 20 <= count['count'],
       };
     } catch (e) {
@@ -102,7 +102,7 @@ class Pokemon {
   String img;
   List types;
   List abilities;
-  String cardColor;
+  int cardColor;
 
   Pokemon.fromStorage(Map map) {
     final List t = json
@@ -117,7 +117,10 @@ class Pokemon {
     img = map[imgColumn];
     types = t;
     abilities = json.decode(map[abilitiesColumn]);
-    cardColor = pokeColor[t.where((e) => e.slot == 1).first.name];
+    cardColor = int.parse(
+      pokeColor[t.where((e) => e.slot == 1).first.name]
+          .replaceAll(RegExp(r'#'), '0xFF'),
+    );
   }
 
   Pokemon.fromApi(Map map) {
@@ -141,7 +144,10 @@ class Pokemon {
           (ability) => ability['ability']['name'],
         )
         .toList();
-    cardColor = pokeColor[t.where((e) => e.slot == 1).first.name];
+    cardColor = int.parse(
+      pokeColor[t.where((e) => e.slot == 1).first.name]
+          .replaceAll(RegExp(r'#'), '0xFF'),
+    );
   }
 
   Map<String, dynamic> toMap() {

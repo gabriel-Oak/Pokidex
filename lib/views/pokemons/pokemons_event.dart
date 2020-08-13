@@ -9,7 +9,7 @@ class PokemonsEvent extends Equatable {
 class GetPokemons extends PokemonsEvent {
   final int offSet;
 
-  GetPokemons({this.offSet});
+  GetPokemons({this.offSet = 0});
 }
 
 class SetPokemons extends PokemonsEvent {

@@ -12,8 +12,8 @@ class PokemonState extends Equatable {
   PokemonState({
     this.loading = false,
     this.count,
-    this.hasNext,
-    this.hasPrev,
+    this.hasNext = false,
+    this.hasPrev = false,
     this.pokemons,
     this.offSet = 0,
   });
