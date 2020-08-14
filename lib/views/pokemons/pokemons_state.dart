@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:pokidex/helpers/pokemon_helper.dart';
+import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 
 class PokemonState extends Equatable {
   final bool loading;

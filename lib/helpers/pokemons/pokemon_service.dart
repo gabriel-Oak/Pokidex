@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pokidex/helpers/pokemon_helper.dart';
+import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 
 class PokemonService {
   final PokemonHelper pokemonHelper;
@@ -21,27 +21,31 @@ class PokemonService {
       Map pagination = await pokemonHelper.getPaginated(offSet: offSet);
 
       if (pagination == null || pagination['pokemons'].length == 0) {
-        final response = await dio.get('', queryParameters: {
-          'offset': offSet,
-          'limit': 20,
-        });
+        try {
+          final response = await dio.get('', queryParameters: {
+            'offset': offSet,
+            'limit': 20,
+          });
 
-        final List results = response.data['results'];
+          final List results = response.data['results'];
 
-        final detailedList = (await Future.wait(
-          results.map((p) async {
-            final id = int.parse(p['url'].substring(34, p['url'].length - 1));
-            return getDetails(id: id);
-          }),
-        ))
-            .where((pokemon) => pokemon != null)
-            .toList();
-        pagination = {
-          'count': response.data['count'],
-          'hasNext': response.data['next'] != null,
-          'hasPrev': response.data['previous'] != null,
-          'pokemons': detailedList,
-        };
+          final detailedList = (await Future.wait(
+            results.map((p) async {
+              final id = int.parse(p['url'].substring(34, p['url'].length - 1));
+              return getDetails(id: id);
+            }),
+          ))
+              .where((pokemon) => pokemon != null)
+              .toList();
+          pagination = {
+            'count': response.data['count'],
+            'hasNext': response.data['next'] != null,
+            'hasPrev': response.data['previous'] != null,
+            'pokemons': detailedList,
+          };
+        } on DioError catch (_) {
+          print('Not connected');
+        }
       }
 
       return pagination;

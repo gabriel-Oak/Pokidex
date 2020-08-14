@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:pokidex/helpers/pokemon_helper.dart';
+import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 
 class PokemonsCard extends StatelessWidget {
   final Pokemon pokemon;
+  final Function onTap;
 
-  PokemonsCard({@required this.pokemon});
+  PokemonsCard({@required this.pokemon, @required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class PokemonsCard extends StatelessWidget {
             ),
             Expanded(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +64,10 @@ class PokemonsCard extends StatelessWidget {
                         .toList(),
                   ),
                   Expanded(
-                    child: Image.network(pokemon.img),
+                    child: FadeInImage.assetNetwork(
+                      image: pokemon.img,
+                      placeholder: 'assets/pokiball.png',
+                    ),
                   ),
                 ],
               ),
@@ -71,7 +75,7 @@ class PokemonsCard extends StatelessWidget {
           ],
         ),
       ),
-      onTap: () {},
+      onTap: () => onTap(pokemon.apiId),
     );
   }
 }

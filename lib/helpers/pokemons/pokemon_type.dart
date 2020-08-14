@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokidex/helpers/poke_colors.dart';
+import 'package:pokidex/helpers/pokemons/poke_colors.dart';
 
 class PokemonType {
   int slot;

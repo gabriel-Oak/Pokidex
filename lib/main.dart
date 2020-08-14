@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pokidex/helpers/pokemon_helper.dart';
-import 'package:pokidex/helpers/pokemon_service.dart';
+import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
+import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
 import 'package:pokidex/views/pokemons/pokemons_page.dart';
 
 void main() {

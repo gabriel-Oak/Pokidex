@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
+import 'package:pokidex/views/pokemon_details/pokemon_details_page.dart';
 import 'package:pokidex/views/pokemons/pokemons_bloc.dart';
 import 'package:pokidex/views/pokemons/pokemons_card.dart';
 import 'package:pokidex/views/pokemons/pokemons_event.dart';
 import 'package:pokidex/views/pokemons/pokemons_state.dart';
 
 class PokemonsContent extends StatelessWidget {
+  final PokemonService service;
+
+  PokemonsContent({@required this.service});
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PokemonsBloc, PokemonState>(
@@ -26,7 +32,7 @@ class PokemonsContent extends StatelessWidget {
             ),
             actions: <Widget>[
               IconButton(
-                tooltip: 'Página anterior',
+                tooltip: 'Previous page',
                 icon: Icon(
                   Icons.arrow_back_ios,
                   color: Colors.black,
@@ -37,7 +43,7 @@ class PokemonsContent extends StatelessWidget {
                 },
               ),
               IconButton(
-                tooltip: 'Próxima página',
+                tooltip: 'Next page',
                 icon: Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.black,
@@ -66,10 +72,15 @@ class PokemonsContent extends StatelessWidget {
                         itemCount: state.pokemons.length,
                         itemBuilder: (contex, index) => PokemonsCard(
                           pokemon: state.pokemons[index],
+                          onTap: (int id) => viewDetails(
+                            contex,
+                            id,
+                            state.pokemons[index].cardColor,
+                          ),
                         ),
                       )
                     : Center(
-                        child: Text('Nenhum pokemon :('),
+                        child: Text('Havan\'t found pokémons yet :('),
                       ),
           ),
         );
@@ -79,5 +90,18 @@ class PokemonsContent extends StatelessWidget {
 
   void changePage(BuildContext context, int offSet) {
     context.bloc<PokemonsBloc>().add(GetPokemons(offSet: offSet));
+  }
+
+  void viewDetails(BuildContext context, int id, int initialColor) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PokemonDetailsPage(
+          id: id,
+          service: service,
+          initialColor: initialColor,
+        ),
+      ),
+    );
   }
 }

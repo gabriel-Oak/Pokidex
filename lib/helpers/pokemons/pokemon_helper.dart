@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:pokidex/helpers/init_database.dart';
-import 'package:pokidex/helpers/poke_colors.dart';
-import 'package:pokidex/helpers/pokemon_type.dart';
+import 'package:pokidex/helpers/pokemons/poke_colors.dart';
+import 'package:pokidex/helpers/pokemons/pokemon_type.dart';
 import 'package:sqflite/sqflite.dart';
 
 final pokemonsTable = 'pokemons';
