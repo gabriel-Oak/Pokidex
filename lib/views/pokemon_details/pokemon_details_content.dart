@@ -26,14 +26,29 @@ class PokemonDetailsContent extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Padding(
-                          padding: EdgeInsets.only(top: 16, left: 16),
-                          child: Text(
-                            pokemon.name,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                            ),
+                          padding:
+                              EdgeInsets.only(top: 16, left: 16, right: 16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Text(
+                                pokemon.name,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '#${pokemon.apiId.toString().padLeft(4, '0')}',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            ],
                           ),
                         ),
                         Padding(
@@ -56,16 +71,79 @@ class PokemonDetailsContent extends StatelessWidget {
                                 .toList(),
                           ),
                         ),
-                        ClipRRect(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25),
-                          ),
+                        Expanded(
                           child: Container(
-                            padding: EdgeInsets.all(16),
-                            color: Colors.white,
-                            child: SingleChildScrollView(
-                              child: Text('data'),
+                            padding: EdgeInsets.only(top: 84),
+                            child: Stack(
+                              overflow: Overflow.visible,
+                              alignment: AlignmentDirectional.topCenter,
+                              fit: StackFit.expand,
+                              children: <Widget>[
+                                Positioned(
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(25),
+                                      topRight: Radius.circular(25),
+                                    ),
+                                    child: Container(
+                                      color: Colors.white,
+                                      child: SingleChildScrollView(
+                                          padding: EdgeInsets.only(
+                                            top: 40,
+                                            left: 16,
+                                            right: 16,
+                                            bottom: 16,
+                                          ),
+                                          child: Column(
+                                            children: <Widget>[
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                              Text('data'),
+                                            ],
+                                          )),
+                                    ),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: -130,
+                                  height: 200,
+                                  child: FadeInImage.assetNetwork(
+                                    image: pokemon.img,
+                                    placeholder: 'assets/pokiball.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
