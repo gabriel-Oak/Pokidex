@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_bloc.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_state.dart';
+import 'package:pokidex/views/pokemon_details/pokemon_details_tabs.dart';
 
 class PokemonDetailsContent extends StatelessWidget {
   @override
@@ -87,50 +88,7 @@ class PokemonDetailsContent extends StatelessWidget {
                                     ),
                                     child: Container(
                                       color: Colors.white,
-                                      child: SingleChildScrollView(
-                                          padding: EdgeInsets.only(
-                                            top: 40,
-                                            left: 16,
-                                            right: 16,
-                                            bottom: 16,
-                                          ),
-                                          child: Column(
-                                            children: <Widget>[
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                              Text('data'),
-                                            ],
-                                          )),
+                                      child: PokemonDetailsTabs(),
                                     ),
                                   ),
                                 ),
