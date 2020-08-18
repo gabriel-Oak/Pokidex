@@ -12,7 +12,7 @@ class PokemonDetailsTabs extends StatelessWidget {
               child: Text('Stats', style: TextStyle(color: Colors.black)),
             ),
             Tab(
-              child: Text('Abilities', style: TextStyle(color: Colors.black)),
+              child: Text('Info', style: TextStyle(color: Colors.black)),
             ),
           ],
         ),
@@ -26,9 +26,11 @@ class PokemonDetailsTabs extends StatelessWidget {
               ),
             ),
             SingleChildScrollView(
+              padding: EdgeInsets.all(8),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text('abilities'),
+                  Text('data'),
                 ],
               ),
             ),

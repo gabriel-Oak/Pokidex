@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:pokidex/helpers/init_database.dart';
 import 'package:pokidex/helpers/pokemons/poke_colors.dart';
+import 'package:pokidex/helpers/pokemons/pokemon_stat.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_type.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -14,6 +15,7 @@ final weightColumn = 'weight';
 final imgColumn = 'img';
 final typesColumn = 'types';
 final abilitiesColumn = 'abilities';
+final statsColumn = 'stats';
 
 class PokemonHelper {
   //Creates a sigleton
@@ -85,6 +87,7 @@ class PokemonHelper {
         imgColumn,
         typesColumn,
         abilitiesColumn,
+        statsColumn,
       ],
       where: '$apiIdColumn = ?',
       whereArgs: [apiId],
@@ -103,6 +106,7 @@ class Pokemon {
   List types;
   List abilities;
   int cardColor;
+  List stats;
 
   Pokemon.fromStorage(Map map) {
     final List t = json
@@ -117,6 +121,10 @@ class Pokemon {
     img = map[imgColumn];
     types = t;
     abilities = json.decode(map[abilitiesColumn]);
+    stats = json
+        .decode(map[statsColumn])
+        .map((e) => PokemonStat.fromMap(e))
+        .toList();
     cardColor = int.parse(
       pokeColor[t.where((e) => e.slot == 1).first.name]
           .replaceAll(RegExp(r'#'), '0xFF'),
@@ -148,6 +156,7 @@ class Pokemon {
       pokeColor[t.where((e) => e.slot == 1).first.name]
           .replaceAll(RegExp(r'#'), '0xFF'),
     );
+    stats = map['stats'].map((e) => PokemonStat.fromApi(e)).toList();
   }
 
   Map<String, dynamic> toMap() {
@@ -158,6 +167,7 @@ class Pokemon {
       weightColumn: weight,
       imgColumn: img,
       typesColumn: json.encode(types.map((type) => type.toMap()).toList()),
+      statsColumn: json.encode(stats.map((e) => e.toMap()).toList()),
       abilitiesColumn: json.encode(abilities),
     };
   }

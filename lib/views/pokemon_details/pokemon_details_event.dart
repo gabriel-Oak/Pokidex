@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class PokemonDetailsEvent {}
+abstract class PokemonDetailsEvent {}
 
 class GetPokemonData extends PokemonDetailsEvent {
   final int id;

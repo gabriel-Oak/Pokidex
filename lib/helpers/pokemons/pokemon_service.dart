@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 
 class PokemonService {
@@ -45,6 +46,8 @@ class PokemonService {
           };
         } on DioError catch (_) {
           print('Not connected');
+        } catch (e) {
+          print(e);
         }
       }
 
@@ -67,7 +70,6 @@ class PokemonService {
 
       return pokemon;
     } catch (e) {
-      print('getDetails');
       print(e);
       return null;
     }
