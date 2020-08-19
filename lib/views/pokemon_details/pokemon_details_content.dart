@@ -88,7 +88,9 @@ class PokemonDetailsContent extends StatelessWidget {
                                     ),
                                     child: Container(
                                       color: Colors.white,
-                                      child: PokemonDetailsTabs(),
+                                      child: PokemonDetailsTabs(
+                                        pokemon: pokemon,
+                                      ),
                                     ),
                                   ),
                                 ),
