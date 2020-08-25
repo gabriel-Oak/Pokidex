@@ -35,10 +35,11 @@ class PokemonsCard extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: pokemon.types
                         .map(
                           (type) => Padding(
-                            padding: EdgeInsets.only(top: 10),
+                            padding: EdgeInsets.only(top: 8),
                             child: Container(
                               padding: EdgeInsets.symmetric(
                                 vertical: 6,

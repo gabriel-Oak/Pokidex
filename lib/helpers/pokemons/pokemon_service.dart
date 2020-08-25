@@ -9,9 +9,9 @@ class PokemonService {
     BaseOptions(
       baseUrl: 'https://pokeapi.co/api/v2/pokemon',
       responseType: ResponseType.json,
-      connectTimeout: 10000,
-      receiveTimeout: 10000,
-      sendTimeout: 10000,
+      connectTimeout: 5000,
+      receiveTimeout: 5000,
+      sendTimeout: 5000,
     ),
   );
 
@@ -20,13 +20,14 @@ class PokemonService {
   Future<Map> getPokemons({offSet = 0}) async {
     try {
       Map pagination = await pokemonHelper.getPaginated(offSet: offSet);
-
       if (pagination == null || pagination['pokemons'].length == 0) {
         try {
+          print('aoba');
           final response = await dio.get('', queryParameters: {
             'offset': offSet,
             'limit': 20,
           });
+          print(response);
 
           final List results = response.data['results'];
 
@@ -44,7 +45,7 @@ class PokemonService {
             'hasPrev': response.data['previous'] != null,
             'pokemons': detailedList,
           };
-        } on DioError catch (_) {
+        } on DioError {
           print('Not connected');
         } catch (e) {
           print(e);

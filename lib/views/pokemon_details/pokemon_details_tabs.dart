@@ -74,7 +74,64 @@ class PokemonDetailsTabs extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text('Weight: ${pokemon.weight}'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Heigth:', style: TextStyle(fontSize: 20)),
+                      Text(
+                        pokemon.heigth != null
+                            ? pokemon.heigth.toString()
+                            : '???',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('Weight:', style: TextStyle(fontSize: 20)),
+                        Text(
+                          pokemon.weight.toString(),
+                          style: TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Text(
+                      'Abilities',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: pokemon.abilities
+                          .map(
+                            (e) => Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(8),
+                                ),
+                              ),
+                              padding: EdgeInsets.all(16),
+                              child: Text(
+                                e,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              margin: EdgeInsets.only(top: 16),
+                            ),
+                          )
+                          .toList())
                 ],
               ),
             ),
