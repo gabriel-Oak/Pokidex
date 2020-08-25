@@ -74,7 +74,7 @@ class PokemonDetailsTabs extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Text('data'),
+                  Text('Weight: ${pokemon.weight}'),
                 ],
               ),
             ),
