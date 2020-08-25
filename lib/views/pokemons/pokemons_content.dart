@@ -119,13 +119,17 @@ class PokemonsContent extends StatelessWidget {
   void viewDetails(BuildContext context, int id, int initialColor, int count) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-        builder: (context) => PokemonDetailsPage(
+      PageRouteBuilder(
+        pageBuilder: (context, _animation, _) => PokemonDetailsPage(
           id: id,
           service: service,
           initialColor: initialColor,
           count: count,
         ),
+        transitionDuration: Duration(milliseconds: 640),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
       ),
     );
   }

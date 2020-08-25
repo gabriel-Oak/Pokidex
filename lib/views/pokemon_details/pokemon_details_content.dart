@@ -100,84 +100,93 @@ class PokemonDetailsContent extends StatelessWidget {
                             ),
                           ),
                           Expanded(
-                            child: Container(
-                              child: Stack(
-                                overflow: Overflow.visible,
-                                alignment: AlignmentDirectional.topCenter,
-                                fit: StackFit.expand,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 84),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(25),
-                                        topRight: Radius.circular(25),
-                                      ),
-                                      child: Container(
-                                        color: Colors.white,
-                                        child: PokemonDetailsTabs(
-                                          pokemon: pokemon,
-                                        ),
+                            child: Stack(
+                              overflow: Overflow.visible,
+                              alignment: AlignmentDirectional.topCenter,
+                              fit: StackFit.expand,
+                              children: <Widget>[
+                                Positioned(
+                                  top: -80,
+                                  child: Image.asset(
+                                    'assets/back.png',
+                                    height: 300,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(top: 84),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(25),
+                                      topRight: Radius.circular(25),
+                                    ),
+                                    child: Container(
+                                      color: Colors.white,
+                                      child: PokemonDetailsTabs(
+                                        pokemon: pokemon,
                                       ),
                                     ),
                                   ),
-                                  Positioned(
-                                    top: -36,
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.only(right: 30),
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.arrow_back_ios,
-                                              size: 40,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              if (pokemon.apiId > 1 &&
-                                                  !state.loading) {
-                                                context
-                                                    .bloc<PokemonDetailsBloc>()
-                                                    .add(GetPokemonData(
-                                                      id: pokemon.apiId - 1,
-                                                    ));
-                                              }
-                                            },
+                                ),
+                                Positioned(
+                                  top: -36,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.only(right: 30),
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.arrow_back_ios,
+                                            size: 40,
+                                            color: Colors.white,
                                           ),
+                                          onPressed: () {
+                                            if (pokemon.apiId > 1 &&
+                                                !state.loading) {
+                                              context
+                                                  .bloc<PokemonDetailsBloc>()
+                                                  .add(GetPokemonData(
+                                                    id: pokemon.apiId - 1,
+                                                  ));
+                                            }
+                                          },
                                         ),
-                                        Container(
-                                          height: 180,
+                                      ),
+                                      Container(
+                                        height: 180,
+                                        child: Hero(
+                                          tag: 'image-${state.currentId}',
                                           child: FadeInImage.assetNetwork(
                                             image: pokemon.img,
                                             placeholder: 'assets/pokiball.png',
                                             fit: BoxFit.cover,
                                           ),
                                         ),
-                                        Padding(
-                                          padding: EdgeInsets.only(left: 30),
-                                          child: IconButton(
-                                            icon: Icon(
-                                              Icons.arrow_forward_ios,
-                                              size: 40,
-                                              color: Colors.white,
-                                            ),
-                                            onPressed: () {
-                                              if (pokemon.apiId < count &&
-                                                  !state.loading) {
-                                                context
-                                                    .bloc<PokemonDetailsBloc>()
-                                                    .add(GetPokemonData(
-                                                      id: pokemon.apiId + 1,
-                                                    ));
-                                              }
-                                            },
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 30),
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 40,
+                                            color: Colors.white,
                                           ),
+                                          onPressed: () {
+                                            if (pokemon.apiId < count &&
+                                                !state.loading) {
+                                              context
+                                                  .bloc<PokemonDetailsBloc>()
+                                                  .add(GetPokemonData(
+                                                    id: pokemon.apiId + 1,
+                                                  ));
+                                            }
+                                          },
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

@@ -65,9 +65,12 @@ class PokemonsCard extends StatelessWidget {
                         .toList(),
                   ),
                   Expanded(
-                    child: FadeInImage.assetNetwork(
-                      image: pokemon.img,
-                      placeholder: 'assets/pokiball.png',
+                    child: Hero(
+                      tag: 'image-${pokemon.apiId}',
+                      child: FadeInImage.assetNetwork(
+                        image: pokemon.img,
+                        placeholder: 'assets/pokiball.png',
+                      ),
                     ),
                   ),
                 ],
