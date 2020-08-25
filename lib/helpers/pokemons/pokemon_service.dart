@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 
 class PokemonService {
@@ -19,44 +18,34 @@ class PokemonService {
 
   Future<Map> getPokemons({offSet = 0}) async {
     try {
-      Map pagination = await pokemonHelper.getPaginated(offSet: offSet);
-      if (pagination == null || pagination['pokemons'].length == 0) {
-        try {
-          print('aoba');
-          final response = await dio.get('', queryParameters: {
-            'offset': offSet,
-            'limit': 20,
-          });
-          print(response);
+      final response = await dio.get('', queryParameters: {
+        'offset': offSet,
+        'limit': 20,
+      });
 
-          final List results = response.data['results'];
+      final List results = response.data['results'];
 
-          final detailedList = (await Future.wait(
-            results.map((p) async {
-              final id = int.parse(p['url'].substring(34, p['url'].length - 1));
-              return getDetails(id: id);
-            }),
-          ))
-              .where((pokemon) => pokemon != null)
-              .toList();
-          pagination = {
-            'count': response.data['count'],
-            'hasNext': response.data['next'] != null,
-            'hasPrev': response.data['previous'] != null,
-            'pokemons': detailedList,
-          };
-        } on DioError {
-          print('Not connected');
-        } catch (e) {
-          print(e);
-        }
-      }
-
-      return pagination;
+      final detailedList = (await Future.wait(
+        results.map((p) async {
+          final id = int.parse(p['url'].substring(34, p['url'].length - 1));
+          return getDetails(id: id);
+        }),
+      ))
+          .where((pokemon) => pokemon != null)
+          .toList();
+      return {
+        'count': response.data['count'],
+        'hasNext': response.data['next'] != null,
+        'hasPrev': response.data['previous'] != null,
+        'pokemons': detailedList,
+      };
+    } on DioError {
+      print('Not connected');
     } catch (e) {
       print(e);
-      return null;
     }
+
+    return await pokemonHelper.getPaginated(offSet: offSet);
   }
 
   Future<Pokemon> getDetails({@required int id}) async {
@@ -72,7 +61,7 @@ class PokemonService {
       return pokemon;
     } catch (e) {
       print(e);
-      return null;
+      throw 'Não possivel buscar o pokemon #${id.toString().padLeft(4, '0')}';
     }
   }
 }

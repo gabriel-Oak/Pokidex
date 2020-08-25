@@ -9,16 +9,27 @@ class PokemonDetailsBloc
     extends Bloc<PokemonDetailsEvent, PokemonDetailsState> {
   final PokemonService service;
 
-  PokemonDetailsBloc({@required this.service, @required initialColor})
-      : super(PokemonDetailsState(initialColor: initialColor));
+  PokemonDetailsBloc({
+    @required this.service,
+    @required int initialColor,
+    @required int id,
+  }) : super(PokemonDetailsState(initialColor: initialColor, currentId: id));
 
   @override
   Stream<PokemonDetailsState> mapEventToState(
       PokemonDetailsEvent event) async* {
     if (event is GetPokemonData) {
-      yield state.evolute(loading: true);
-      final Pokemon pokemon = await service.getDetails(id: event.id);
-      yield state.evolute(loading: false, pokemon: pokemon);
+      try {
+        yield state.evolute(
+          loading: true,
+          currentId: event.id,
+          errorMessage: '',
+        );
+        final Pokemon pokemon = await service.getDetails(id: event.id);
+        yield state.evolute(loading: false, pokemon: pokemon);
+      } catch (e) {
+        yield state.evolute(loading: false, errorMessage: e);
+      }
     }
   }
 }

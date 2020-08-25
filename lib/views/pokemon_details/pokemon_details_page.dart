@@ -9,20 +9,22 @@ class PokemonDetailsPage extends StatelessWidget {
   final int id;
   final PokemonService service;
   final int initialColor;
+  final int count;
 
   PokemonDetailsPage({
     @required this.id,
     @required this.service,
     @required this.initialColor,
+    @required this.count,
   });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<PokemonDetailsBloc>(
-      create: (context) =>
-          PokemonDetailsBloc(service: service, initialColor: initialColor)
-            ..add(GetPokemonData(id: id)),
-      child: PokemonDetailsContent(),
+      create: (context) => PokemonDetailsBloc(
+          service: service, initialColor: initialColor, id: id)
+        ..add(GetPokemonData(id: id)),
+      child: Scaffold(body: PokemonDetailsContent(count: count)),
     );
   }
 }

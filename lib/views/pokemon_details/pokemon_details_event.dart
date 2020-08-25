@@ -7,3 +7,5 @@ class GetPokemonData extends PokemonDetailsEvent {
 
   GetPokemonData({@required this.id});
 }
+
+class ClearErrorMessage extends PokemonDetailsEvent {}

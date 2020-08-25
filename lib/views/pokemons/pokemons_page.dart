@@ -14,7 +14,7 @@ class PokemonsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<PokemonsBloc>(
       create: (context) => PokemonsBloc(service: service)..add(GetPokemons()),
-      child: PokemonsContent(service: service),
+      child: Scaffold(body: PokemonsContent(service: service)),
     );
   }
 }

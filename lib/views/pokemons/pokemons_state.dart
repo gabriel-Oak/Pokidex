@@ -8,6 +8,7 @@ class PokemonState extends Equatable {
   final bool hasNext;
   final bool hasPrev;
   final int offSet;
+  final String errorMessage;
 
   PokemonState({
     this.loading = false,
@@ -16,9 +17,18 @@ class PokemonState extends Equatable {
     this.hasPrev = false,
     this.pokemons,
     this.offSet = 0,
+    this.errorMessage = '',
   });
 
-  PokemonState evolute({loading, count, hasNext, hasPrev, pokemons, offSet}) {
+  PokemonState evolute({
+    bool loading,
+    int count,
+    bool hasNext,
+    bool hasPrev,
+    List<Pokemon> pokemons,
+    int offSet,
+    String errorMessage,
+  }) {
     return PokemonState(
       loading: loading ?? this.loading,
       count: count ?? this.count,
@@ -26,6 +36,7 @@ class PokemonState extends Equatable {
       hasPrev: hasPrev ?? this.hasPrev,
       pokemons: pokemons ?? this.pokemons,
       offSet: offSet ?? this.offSet,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 
@@ -37,5 +48,6 @@ class PokemonState extends Equatable {
         hasPrev,
         count,
         offSet,
+        errorMessage,
       ];
 }

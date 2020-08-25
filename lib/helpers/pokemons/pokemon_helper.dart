@@ -71,7 +71,7 @@ class PokemonHelper {
       };
     } catch (e) {
       print(e);
-      return null;
+      throw 'Falha ao consultar o banco local!';
     }
   }
 
