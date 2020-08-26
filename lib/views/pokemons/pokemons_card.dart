@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokidex/components/rotation_back.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 
 class PokemonsCard extends StatelessWidget {
@@ -65,12 +66,26 @@ class PokemonsCard extends StatelessWidget {
                         .toList(),
                   ),
                   Expanded(
-                    child: Hero(
-                      tag: 'image-${pokemon.apiId}',
-                      child: FadeInImage.assetNetwork(
-                        image: pokemon.img,
-                        placeholder: 'assets/pokiball.png',
-                      ),
+                    child: Stack(
+                      children: [
+                        RotationBack(
+                          duration: 3000,
+                          child: Opacity(
+                            opacity: 0.5,
+                            child: Image.asset(
+                              'assets/back.png',
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Hero(
+                          tag: 'image-${pokemon.apiId}',
+                          child: FadeInImage.assetNetwork(
+                            image: pokemon.img,
+                            placeholder: 'assets/pokiball.png',
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

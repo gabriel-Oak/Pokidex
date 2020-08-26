@@ -71,7 +71,7 @@ class PokemonHelper {
       };
     } catch (e) {
       print(e);
-      throw 'Falha ao consultar o banco local!';
+      throw 'Got something wrong fetching data localy!';
     }
   }
 

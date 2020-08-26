@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokidex/components/rotation_back.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_bloc.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_event.dart';
@@ -8,6 +9,7 @@ import 'package:pokidex/views/pokemon_details/pokemon_details_tabs.dart';
 
 class PokemonDetailsContent extends StatelessWidget {
   final int count;
+
   PokemonDetailsContent({@required this.count});
 
   @override
@@ -107,10 +109,16 @@ class PokemonDetailsContent extends StatelessWidget {
                               children: <Widget>[
                                 Positioned(
                                   top: -80,
-                                  child: Image.asset(
-                                    'assets/back.png',
-                                    height: 300,
-                                    fit: BoxFit.cover,
+                                  child: RotationBack(
+                                    duration: 2000,
+                                    child: Opacity(
+                                      opacity: 0.5,
+                                      child: Image.asset(
+                                        'assets/back.png',
+                                        height: 300,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
                                 ),
                                 Padding(
@@ -192,7 +200,7 @@ class PokemonDetailsContent extends StatelessWidget {
                         ],
                       )
                     : Center(
-                        child: Text('Erro ao carregar pokemon!'),
+                        child: Text('Error while fetching pokémon!'),
                       ),
             backgroundColor: getColor(pokemon, initialColor),
           );

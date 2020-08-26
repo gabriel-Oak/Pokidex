@@ -8,9 +8,9 @@ class PokemonService {
     BaseOptions(
       baseUrl: 'https://pokeapi.co/api/v2/pokemon',
       responseType: ResponseType.json,
-      connectTimeout: 5000,
-      receiveTimeout: 5000,
-      sendTimeout: 5000,
+      connectTimeout: 25000,
+      receiveTimeout: 25000,
+      sendTimeout: 25000,
     ),
   );
 
@@ -61,7 +61,7 @@ class PokemonService {
       return pokemon;
     } catch (e) {
       print(e);
-      throw 'Não possivel buscar o pokemon #${id.toString().padLeft(4, '0')}';
+      throw 'Couldn\'t fetch pokémon #${id.toString().padLeft(4, '0')}';
     }
   }
 }
