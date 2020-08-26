@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:path/path.dart';
+import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_page.dart';
 import 'package:pokidex/views/pokemons/pokemons_bloc.dart';
@@ -96,7 +97,7 @@ class PokemonsContent extends StatelessWidget {
                             pokemon: state.pokemons[index],
                             onTap: (int id) => viewDetails(
                               contex,
-                              id,
+                              state.pokemons[index],
                               state.pokemons[index].cardColor,
                               state.count,
                             ),
@@ -116,12 +117,13 @@ class PokemonsContent extends StatelessWidget {
     context.bloc<PokemonsBloc>().add(GetPokemons(offSet: offSet));
   }
 
-  void viewDetails(BuildContext context, int id, int initialColor, int count) {
+  void viewDetails(
+      BuildContext context, Pokemon pokemon, int initialColor, int count) {
     Navigator.push(
       context,
       PageRouteBuilder(
         pageBuilder: (context, _animation, _) => PokemonDetailsPage(
-          id: id,
+          pokemon: pokemon,
           service: service,
           initialColor: initialColor,
           count: count,

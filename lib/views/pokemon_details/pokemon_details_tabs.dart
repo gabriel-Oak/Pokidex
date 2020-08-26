@@ -19,12 +19,8 @@ class PokemonDetailsTabs extends StatelessWidget {
             labelStyle: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
             labelColor: Colors.black,
             tabs: <Widget>[
-              Tab(
-                child: Text('Stats'),
-              ),
-              Tab(
-                child: Text('Info'),
-              ),
+              Tab(child: Text('Stats')),
+              Tab(child: Text('Info')),
             ],
           ),
           body: TabBarView(

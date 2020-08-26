@@ -8,10 +8,6 @@ import 'package:pokidex/views/pokemon_details/pokemon_details_state.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_tabs.dart';
 
 class PokemonDetailsContent extends StatelessWidget {
-  final int count;
-
-  PokemonDetailsContent({@required this.count});
-
   @override
   Widget build(BuildContext context) {
     return BlocListener<PokemonDetailsBloc, PokemonDetailsState>(
@@ -180,7 +176,7 @@ class PokemonDetailsContent extends StatelessWidget {
                                             color: Colors.white,
                                           ),
                                           onPressed: () {
-                                            if (pokemon.apiId < count &&
+                                            if (pokemon.apiId < state.count &&
                                                 !state.loading) {
                                               context
                                                   .bloc<PokemonDetailsBloc>()

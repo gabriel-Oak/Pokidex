@@ -8,10 +8,12 @@ class PokemonDetailsState extends Equatable {
   final int initialColor;
   final String errorMessage;
   final int currentId;
+  final int count;
 
   PokemonDetailsState({
     @required this.initialColor,
     @required this.currentId,
+    @required this.count,
     this.loading = false,
     this.pokemon,
     this.errorMessage = '',
@@ -30,10 +32,11 @@ class PokemonDetailsState extends Equatable {
       initialColor: initialColor ?? this.initialColor,
       errorMessage: errorMessage ?? this.errorMessage,
       currentId: currentId ?? this.currentId,
+      count: count ?? this.count,
     );
   }
 
   @override
   List<Object> get props =>
-      [loading, pokemon, initialColor, errorMessage, currentId];
+      [loading, pokemon, initialColor, errorMessage, currentId, count];
 }

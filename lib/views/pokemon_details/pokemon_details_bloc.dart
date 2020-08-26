@@ -13,7 +13,14 @@ class PokemonDetailsBloc
     @required this.service,
     @required int initialColor,
     @required int id,
-  }) : super(PokemonDetailsState(initialColor: initialColor, currentId: id));
+    @required int count,
+    @required Pokemon pokemon,
+  }) : super(PokemonDetailsState(
+          initialColor: initialColor,
+          currentId: id,
+          pokemon: pokemon,
+          count: count,
+        ));
 
   @override
   Stream<PokemonDetailsState> mapEventToState(
