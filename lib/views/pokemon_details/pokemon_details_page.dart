@@ -4,7 +4,6 @@ import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_bloc.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_content.dart';
-import 'package:pokidex/views/pokemon_details/pokemon_details_event.dart';
 
 class PokemonDetailsPage extends StatelessWidget {
   final Pokemon pokemon;
