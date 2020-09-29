@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
+import 'package:pokidex/helpers/models/pokemon_model.dart';
 
 class PokemonDetailsTabs extends StatelessWidget {
-  final Pokemon pokemon;
+  final PokemonModel pokemon;
 
   PokemonDetailsTabs({@required this.pokemon});
 

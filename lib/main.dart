@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pokidex/helpers/db/db.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
 import 'package:pokidex/views/pokemons/pokemons_page.dart';
@@ -8,7 +9,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static PokemonHelper pokemonHelper = PokemonHelper();
+  static PokemonHelper pokemonHelper = PokemonHelper(db: Db());
   final PokemonService pokeService = PokemonService(
     pokemonHelper: pokemonHelper,
   );

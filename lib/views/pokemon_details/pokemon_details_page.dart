@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
+import 'package:pokidex/helpers/models/pokemon_model.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_bloc.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_content.dart';
 
 class PokemonDetailsPage extends StatelessWidget {
-  final Pokemon pokemon;
+  final PokemonModel pokemon;
   final PokemonService service;
   final int initialColor;
   final int count;

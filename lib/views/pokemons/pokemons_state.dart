@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
+import 'package:pokidex/helpers/models/pokemon_model.dart';
 
 class PokemonState extends Equatable {
   final bool loading;
-  final List<Pokemon> pokemons;
+  final List<PokemonModel> pokemons;
   final int count;
   final bool hasNext;
   final bool hasPrev;
@@ -25,7 +25,7 @@ class PokemonState extends Equatable {
     int count,
     bool hasNext,
     bool hasPrev,
-    List<Pokemon> pokemons,
+    List<PokemonModel> pokemons,
     int offSet,
     String errorMessage,
   }) {

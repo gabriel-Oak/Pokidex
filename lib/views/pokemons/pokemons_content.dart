@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
+import 'package:pokidex/helpers/models/pokemon_model.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_page.dart';
 import 'package:pokidex/views/pokemons/pokemons_bloc.dart';
@@ -117,7 +117,7 @@ class PokemonsContent extends StatelessWidget {
   }
 
   void viewDetails(
-      BuildContext context, Pokemon pokemon, int initialColor, int count) {
+      BuildContext context, PokemonModel pokemon, int initialColor, int count) {
     Navigator.push(
       context,
       PageRouteBuilder(

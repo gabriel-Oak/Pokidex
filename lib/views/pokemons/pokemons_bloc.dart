@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:pokidex/helpers/db/db.dart';
+import 'package:pokidex/helpers/db/init_db.dart';
 import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
 import 'package:pokidex/views/pokemons/pokemons_event.dart';
 import 'package:pokidex/views/pokemons/pokemons_state.dart';
