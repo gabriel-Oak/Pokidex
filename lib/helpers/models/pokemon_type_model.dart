@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:pokidex/helpers/utils/poke_colors.dart';
 
 class PokemonTypeModel extends Equatable {
   final int slot;
@@ -23,8 +26,8 @@ class PokemonTypeModel extends Equatable {
   factory PokemonTypeModel.fromApi(Map map) {
     return PokemonTypeModel(
       slot: map['slot'],
-      name: map['name'],
-      colorString: map['colorString'],
+      name: map['type']['name'],
+      colorString: typeColor[map['type']['name']],
     );
   }
 
@@ -40,6 +43,7 @@ class PokemonTypeModel extends Equatable {
     return {
       'slot': map['slot'],
       'name': map['type']['name'],
+      'colorString': typeColor[map['type']['name']],
     };
   }
 

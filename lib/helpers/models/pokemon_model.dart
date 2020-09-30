@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:pokidex/helpers/models/pokemon_stat_model.dart';
@@ -35,8 +34,6 @@ class PokemonModel extends Equatable {
         .map((type) => PokemonTypeModel.fromMap(type))
         .toList();
 
-    print(t);
-
     return PokemonModel(
       apiId: map['apiId'],
       name: map['name'],
@@ -47,13 +44,16 @@ class PokemonModel extends Equatable {
           .replaceAll(RegExp(r'#'), '0xFF')),
       types: t,
       abilities: json.decode(map['abilities']),
-      stats: null,
+      stats: json
+          .decode(map['stats'])
+          .map((e) => PokemonStatModel.fromMap(e))
+          .toList(),
     );
   }
 
   factory PokemonModel.fromApi(Map map) {
     final List<String> splitedName = map['name'].split(' ');
-    final t =
+    final List t =
         map['types'].map((type) => PokemonTypeModel.fromApi(type)).toList();
 
     return PokemonModel(

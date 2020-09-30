@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:pokidex/helpers/models/pokemon_model.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
+import 'package:pokidex/helpers/services/pokemon_service.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_event.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_state.dart';
 

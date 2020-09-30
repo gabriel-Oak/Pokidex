@@ -34,6 +34,7 @@ class PokemonDetailsContent extends StatelessWidget {
         builder: (context, state) {
           final PokemonModel pokemon = state.pokemon;
           final int initialColor = state.initialColor;
+          // print(pokemon.props);
 
           return Scaffold(
             appBar: AppBar(

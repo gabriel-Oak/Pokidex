@@ -1,3 +1,15 @@
+final pokemonsColumns = [
+  'idApp',
+  'apiId',
+  'name',
+  'heigth',
+  'weight',
+  'img',
+  'types',
+  'abilities',
+  'stats',
+];
+
 final pokemonsTable = '''
   CREATE TABLE pokemons (
     idApp INTEGER,
