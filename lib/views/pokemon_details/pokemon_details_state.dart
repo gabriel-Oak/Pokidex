@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
+import 'package:pokidex/helpers/models/pokemon_model.dart';
 
 class PokemonDetailsState extends Equatable {
   final bool loading;
-  final Pokemon pokemon;
+  final PokemonModel pokemon;
   final int initialColor;
   final String errorMessage;
   final int currentId;
@@ -21,7 +21,7 @@ class PokemonDetailsState extends Equatable {
 
   PokemonDetailsState evolute({
     bool loading,
-    Pokemon pokemon,
+    PokemonModel pokemon,
     int initialColor,
     String errorMessage,
     int currentId,

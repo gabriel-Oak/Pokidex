@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokidex/components/rotation_back.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
+import 'package:pokidex/helpers/models/pokemon_model.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_bloc.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_event.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_state.dart';
@@ -32,8 +32,9 @@ class PokemonDetailsContent extends StatelessWidget {
           state.errorMessage != previus.errorMessage,
       child: BlocBuilder<PokemonDetailsBloc, PokemonDetailsState>(
         builder: (context, state) {
-          final Pokemon pokemon = state.pokemon;
+          final PokemonModel pokemon = state.pokemon;
           final int initialColor = state.initialColor;
+          // print(pokemon.props);
 
           return Scaffold(
             appBar: AppBar(
@@ -205,7 +206,7 @@ class PokemonDetailsContent extends StatelessWidget {
     );
   }
 
-  Color getColor(Pokemon pokemon, int initialColor) {
+  Color getColor(PokemonModel pokemon, int initialColor) {
     return pokemon != null ? Color(pokemon.cardColor) : Color(initialColor);
   }
 }

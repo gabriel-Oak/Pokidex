@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_service.dart';
+import 'package:pokidex/helpers/models/pokemon_model.dart';
+import 'package:pokidex/helpers/services/pokemon_service.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_event.dart';
 import 'package:pokidex/views/pokemon_details/pokemon_details_state.dart';
 
@@ -14,7 +14,7 @@ class PokemonDetailsBloc
     @required int initialColor,
     @required int id,
     @required int count,
-    @required Pokemon pokemon,
+    @required PokemonModel pokemon,
   }) : super(PokemonDetailsState(
           initialColor: initialColor,
           currentId: id,
@@ -32,7 +32,7 @@ class PokemonDetailsBloc
           currentId: event.id,
           errorMessage: '',
         );
-        final Pokemon pokemon = await service.getDetails(id: event.id);
+        final PokemonModel pokemon = await service.getDetails(id: event.id);
         yield state.evolute(loading: false, pokemon: pokemon);
       } catch (e) {
         yield state.evolute(loading: false, errorMessage: e);

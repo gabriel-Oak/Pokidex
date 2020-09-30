@@ -1,9 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:pokidex/helpers/pokemons/pokemon_helper.dart';
+import 'package:pokidex/helpers/models/pokemon_model.dart';
+import 'package:pokidex/helpers/repositories/pokemon_repository.dart';
 
 class PokemonService {
-  final PokemonHelper pokemonHelper;
+  final PokemonRepository pokemonHelper;
   final Dio dio = Dio(
     BaseOptions(
       baseUrl: 'https://pokeapi.co/api/v2/pokemon',
@@ -48,13 +49,13 @@ class PokemonService {
     return await pokemonHelper.getPaginated(offSet: offSet);
   }
 
-  Future<Pokemon> getDetails({@required int id}) async {
+  Future<PokemonModel> getDetails({@required int id}) async {
     try {
-      Pokemon pokemon = await pokemonHelper.getByApiId(apiId: id);
+      PokemonModel pokemon = await pokemonHelper.getByApiId(apiId: id);
 
       if (pokemon == null) {
         final response = await dio.get('/$id');
-        pokemon = Pokemon.fromApi(response.data);
+        pokemon = PokemonModel.fromApi(response.data);
         pokemonHelper.saveUpdate(pokemon);
       }
 
