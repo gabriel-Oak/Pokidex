@@ -19,8 +19,8 @@ class _RotationBackState extends State<RotationBack>
     super.initState();
 
     _animationController = AnimationController(
-      vsync: this,
       duration: Duration(milliseconds: widget.duration),
+      vsync: this,
     );
 
     _animationController.repeat();
